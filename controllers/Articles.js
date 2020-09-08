@@ -51,7 +51,7 @@ export default class NewArticle {
   }
 
   static async deleteArticle (req, res) {
-    const article = await db.Article.destroy({where:{id:req.params.id}})
+    const article = await db.Article.destroy({where:{id:req.params.id}&&{userId:req.params.id}})
     res.status(OK).send({message:'This article has been deleted', article});
   }
 }

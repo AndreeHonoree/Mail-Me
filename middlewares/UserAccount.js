@@ -69,7 +69,7 @@ export const checkUserLogin = async (req, res, next) => {
             next();
           }
           else{
-            res.status(401).send({ message:'Password is not valid', auth: false, token: null })
+            res.status(401).send({ message:'Invalid Password', auth: false, token: null })
           } 
         }
         else{
