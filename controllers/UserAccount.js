@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs';
 import {OK, CREATED, UNAUTHORISED} from '../statusCode';
 
 
-
 export default class NewUser {
 
   static async registerUser (req, res){
@@ -36,9 +35,9 @@ export default class NewUser {
 
 
   static async getAllUsers(req, res){
-    const users = await db.User.findAll({})
     const {currentUser} = req;
     if(currentUser.role === 'admin'){
+      const users = await db.User.findAll({})
       res.status(OK).send({
       status: OK, 
       success: true,
@@ -74,8 +73,17 @@ export default class NewUser {
 
 
   static async deleteUser (req, res) {
-    const user = await db.User.destroy({where:{id:req.params.id}});
-    res.status(OK).send({message:'User deleted'});
+    const {currentUser} = req;
+    if(currentUser.role === 'admin'){
+      const user = await db.User.destroy({where:{id:req.params.id}});
+      res.status(OK).send({message:'User deleted'});
+    }
+    else{
+      res.status(401).send({
+        status: UNAUTHORISED,
+        message:"Current User is not authorised! Only admin allowed to delete user"
+      })
+    }
   }
 }
 

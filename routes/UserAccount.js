@@ -18,7 +18,8 @@ routes.get('/users', authAccess, NewUser.getAllUsers);
 routes.post('/users/signUp', CheckExistingUser, validateCreatedUser , NewUser.registerUser);
 routes.get('/users/:id',checkUserId, NewUser.getUserById);
 routes.put('/users/:id', checkUserId, NewUser.updateUser);
-routes.delete('/users/:id',checkUserId, NewUser.deleteUser);
+routes.delete('/users/:id',checkUserId, authAccess, NewUser.deleteUser);
 routes.post('/users/login',checkUserLogin, NewUser.userLogin);
+
 
 export default routes;
