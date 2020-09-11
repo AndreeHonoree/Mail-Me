@@ -1,7 +1,11 @@
 import express from 'express' ;
 import bodyParser from 'body-parser';
 import NewUser from '../controllers/UserAccount';
-import {CheckExistingUser, validateCreatedUser, checkUserId, checkUserLogin, authAccess } from '../middlewares/UserAccount';
+import {CheckExistingUser,
+        validateCreatedUser, 
+        checkUserId, 
+        checkUserLogin, 
+        authAccess } from '../Middlewares/UserAccount';
 
 
 

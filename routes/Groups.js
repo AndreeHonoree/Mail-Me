@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import Groups from '../controllers/Groups';
-import {checkUserRegistration, checkExistingGroup} from '../middlewares/Groups'
+import {checkUserRegistration, checkExistingGroup} from '../Middlewares/Groups'
 
 
 const app = express();

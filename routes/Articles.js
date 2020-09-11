@@ -1,7 +1,10 @@
 import express from 'express' ;
 import bodyParser from 'body-parser';
 import NewArticle from '../controllers/Articles';
-import {checkExistingArticle, validateCreatedArticle, checkArticleId, checkUserId} from '../middlewares/Articles';
+import {checkExistingArticle, 
+        validateCreatedArticle, 
+        checkArticleId, 
+        checkUserId} from '../Middlewares/Articles';
 
 
 

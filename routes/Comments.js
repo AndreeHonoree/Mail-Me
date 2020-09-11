@@ -1,8 +1,7 @@
 import express from 'express';
 import NewComment from '../controllers/Comments';
-import {checkArticleId, checkCommentId} from '../middlewares/Comments';
+import {checkArticleId, checkCommentId} from '../Middlewares/Comments';
 
-//const app = express();
 const routes = express.Router();
 
 
