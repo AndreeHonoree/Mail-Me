@@ -2,7 +2,11 @@ import Joi from 'joi';
 import db from '../database/models';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import {INTERNAL_SERVER_ERROR, UNAUTHORISED} from '../statusCode';
+import {INTERNAL_SERVER_ERROR, 
+        UNAUTHORISED, 
+        OK, 
+        BAD_REQUEST, 
+        NOT_FOUND} from '../statusCode';
 
 export const CheckExistingUser = async (req, res, next) => {
     const { name, email } = req.body;
@@ -10,8 +14,8 @@ export const CheckExistingUser = async (req, res, next) => {
     const user = await db.User.findOne({where: {name,email}});
 
     if(user){
-        return res.status(208).send({
-        status: 208,
+        return res.status(OK).send({
+        status: OK,
         message:'User added already exists'
     })}
     else{
@@ -24,8 +28,8 @@ export const CheckExistingUser = async (req, res, next) => {
 export const validateCreatedUser = (req, res, next) => {
     const {error} = validateUser(req.body);
     if(error){
-        return res.status(400).send({
-            status:400,
+        return res.status(BAD_REQUEST).send({
+            status:BAD_REQUEST,
             message:error.details[0].message});
     }
     else{
@@ -52,7 +56,7 @@ export const checkUserId = async (req, res, next) => {
         return next();
     }
     else {
-        res.status(404).send({status:404,mesage:'User not found'});
+        res.status(NOT_FOUND).send({status:NOT_FOUND,message:'User not found'});
     }
 }
 
@@ -69,15 +73,15 @@ export const checkUserLogin = async (req, res, next) => {
             next();
           }
           else{
-            res.status(401).send({ message:'Password is not valid', auth: false, token: null })
+            res.status(UNAUTHORISED).send({ status:UNAUTHORISED , message:'Invalid Password', auth: false, token: null })
           } 
         }
         else{
-          res.status(404).send({message:'User not found! You entered incorrect email or password'});
+          res.status(UNAUTHORISED).send({status:UNAUTHORISED, message:'User not found! You entered incorrect email or password'});
         } 
         }
     else{
-        res.status(404).send({message:'Please enter email and password or go to sign for registration'});
+        res.status(UNAUTHORISED).send({status:UNAUTHORISED, message:'Please enter email and password or go to sign for registration'});
         res.end();
     }
 }
@@ -86,7 +90,7 @@ export const checkUserLogin = async (req, res, next) => {
 export const authAccess = async (req, res, next) => {
     const token = await req.headers['x-access-token'];
     if (!token) 
-      res.status(UNAUTHORISED).send({ auth: false, message: 'No token provided.'
+      res.status(UNAUTHORISED).send({status:UNAUTHORISED, auth: false, message: 'No token provided.'
     });
     
     else{
