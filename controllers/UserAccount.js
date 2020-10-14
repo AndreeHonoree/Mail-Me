@@ -13,10 +13,11 @@ export default class NewUser {
     const user =  await db.User.create({
       name : req.body.name,
       email : req.body.email,
+      role: req.body.role,
       password : hashedPassword
     });
  
-  const token = await jwt.sign({ id: user.id, name:user.name }, process.env.secretkey, 
+  const token = await jwt.sign({ id: user.id, name:user.name, role:user.role }, process.env.secretkey, 
       {expiresIn: 86400} 
     );
     res.status(OK).send({

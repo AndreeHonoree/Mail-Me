@@ -34,11 +34,11 @@ export default class NewArticle {
 
   static async getArticlesByUserId ( req, res) {
     
-      const articles = await db.Article.findAll({where: {userId: req.params.id}});
+    const articles = await db.Article.findAll({where: {userId: req.params.id}});
     res.status(OK).send({
       status: OK,
-      message:'Articles posted by specified user are:', articles});
-   
+      message:'Articles posted by specified user are:', articles
+    });
   }
 
 
@@ -47,11 +47,15 @@ export default class NewArticle {
       { where:{id:req.params.id}
     });
     const article = await db.Article.findOne({where:{id:req.params.id}})
-    res.status(OK).send({messaage:'This article has been modified', article});
+    res.status(OK).send({
+      status:OK, message:'This article has been modified', article
+    });
   }
 
   static async deleteArticle (req, res) {
     const article = await db.Article.destroy({where:{id:req.params.id}&&{userId:req.params.id}})
-    res.status(OK).send({message:'This article has been deleted', article});
+    res.status(OK).send({
+      status:OK, message:'This article has been deleted', article
+    });
   }
 }

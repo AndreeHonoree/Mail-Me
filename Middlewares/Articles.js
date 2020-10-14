@@ -4,8 +4,6 @@ import {ALREADY_EXISTS, BAD_REQUEST, NOT_FOUND} from '../statusCode';
 
 
 
-
-
 export const checkExistingArticle = async (req, res, next) => {
     const {title, content, userId} = req.body
     const article = await db.Article.findOne({where:{title, content, userId}})
@@ -66,8 +64,3 @@ export const checkUserId = async (req, res, next) => {
           })
     }
 }
-
-// export const checkArticleOwner = async (req, res, next) => {
-//     const userId = req.body
-//     const user = await db.Article.findOne({where : {userId: req.body.userId}})
-// }

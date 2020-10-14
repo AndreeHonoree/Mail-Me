@@ -8,8 +8,6 @@ import {CheckExistingUser,
         authAccess } from '../Middlewares/UserAccount';
 
 
-
-
 const app = express();
 
 app.use(express.json());
